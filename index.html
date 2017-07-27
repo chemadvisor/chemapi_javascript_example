@@ -1,0 +1,55 @@
+/*
+ * Copyright (c) 2017 ChemADVISOR, Inc. All rights reserved.
+ * Licensed under The MIT License (MIT)
+ * https://opensource.org/licenses/MIT
+ */
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(event){
+	event.preventDefault();
+        $.ajax({
+		//set base address
+		url:"https://sandbox.chemadvisor.io/chem/rest/v2/lists",
+		type:'GET',
+		
+		//set query parameters:q, limit, offset
+		data:{
+		limit:10,
+		offset:0,
+		q:encodeURI('{"tags.tag.name":"Government Inventory Lists"}')
+		},
+		
+		headers:{
+			//set accept header:'application/json', 'application/xml'
+			Accept:'application/json',
+			//set app_key header
+			app_key:'your_app_key'		
+			//set app_id header
+			app_id:'your_app_id'
+		},
+		success: function(data){
+			//getting JSON data
+            alert(JSON.stringify(data));
+			<!-- //getting XML data -->
+			<!-- alert((new XMLSerializer()).serializeToString(data)); -->
+        },
+		error: function(xhr,status,error){
+		 <!-- alert(JSON.stringify(error)); -->
+		 //var err=eval(xhr.responseText);
+		 alert(xhr.responseText);
+		 //alert("error");
+		}
+		});
+});
+})
+</script>
+</head>
+<body>
+<button>Send an HTTP GET request to LOLI Rest Api and get the result back</button>
+</body>
+</html>
